@@ -7,8 +7,7 @@ your agent always knows what's on your plate and updates it as work completes.
 
 Everything ships **bundled** in the plugin — the spec, the slash-command skills, a SessionStart
 hook that auto-loads your current slice each session, the `linear.py` API wrapper, and an
-optional status-bar widget — so it works against *your own* Linear workspace, with no access to
-anyone else's required.
+optional status-bar widget.
 
 ## Why we built it
 
