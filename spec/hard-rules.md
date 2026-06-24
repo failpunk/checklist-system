@@ -22,12 +22,16 @@ Direct GraphQL is fragile and error-prone. The wrapper handles state lookups, va
 
 When posting plan content via `set-body`, preserve the top checkbox section. Replacing the entire body wipes the active checklist.
 
+## Always post a wrap-up comment when closing a slice
+
+When a slice is closed (`mark-done`, the `/checklist:slice done` flow, or a natural-language close), post a human-readable wrap-up comment on it: final state, what was done, and any other updates (carry-forward, decisions, follow-ups). Closing a slice without a wrap-up comment leaves no record of how it ended. See [Slice state lifecycle](./slice-state-lifecycle.md).
+
 ## Don't paraphrase the spec back to the user as if it's news
 
 This spec is loaded into your session context. The user knows what's in it (they wrote it). Don't restate rules unless the user asks "what does the spec say about X?".
 
 ## See also
 
-* [Capture mode](https://linear.app/failpunkllc/document/capture-mode-6103e77ae078)
-* [The linear.py wrapper](https://linear.app/failpunkllc/document/the-linearpy-wrapper-cf39f31f964f)
-* [Slice body structure](https://linear.app/failpunkllc/document/slice-body-structure-e645fed13bcc)
+* [Capture mode](./capture-mode.md)
+* [The linear.py wrapper](./the-linearpy-wrapper.md)
+* [Slice body structure](./slice-body-structure.md)

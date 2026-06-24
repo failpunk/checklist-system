@@ -112,7 +112,7 @@ def _next_label_color(team_id: str) -> str:
 
 LINEAR_API_URL = "https://api.linear.app/graphql"
 
-# Failpunk Linear color scheme by entity type (see the "Cross-entity references"
+# Linear color scheme by entity type (see the "Cross-entity references"
 # spec doc). Override per-call with `--color <hex>` on the relevant subcommand.
 DEFAULT_DOC_COLOR = "#f2994a"  # documents: orange
 DEFAULT_PROJECT_COLOR = "#26b5ce"  # projects: blue
@@ -120,24 +120,22 @@ DEFAULT_INITIATIVE_COLOR = "#eb5757"  # initiatives: red
 
 
 def get_api_key() -> str:
-    # Env var (generic first; *_FAILPUNK_* kept for back-compat with the maintainer's setup).
-    for var in ("LINEAR_API_KEY", "LINEAR_FAILPUNK_API_KEY"):
-        env_key = os.environ.get(var)
-        if env_key:
-            return env_key.strip()
-    # macOS Keychain (generic service first, then back-compat).
+    # Env var.
+    env_key = os.environ.get("LINEAR_API_KEY")
+    if env_key:
+        return env_key.strip()
+    # macOS Keychain.
     try:
         import subprocess
 
-        for service in ("linear-checklist", "linear-failpunk"):
-            out = subprocess.run(
-                ["security", "find-generic-password", "-w", "-s", service],
-                capture_output=True,
-                text=True,
-                timeout=5,
-            )
-            if out.returncode == 0 and out.stdout.strip():
-                return out.stdout.strip()
+        out = subprocess.run(
+            ["security", "find-generic-password", "-w", "-s", "linear-checklist"],
+            capture_output=True,
+            text=True,
+            timeout=5,
+        )
+        if out.returncode == 0 and out.stdout.strip():
+            return out.stdout.strip()
     except Exception:
         pass
     key_file = Path.home() / ".config" / "checklist" / "api-key"
@@ -1968,7 +1966,7 @@ def cmd_update_doc_index(args: list[str]) -> None:
     )
     if docs:
         body = "\n".join(f"- [{d['title']}]({d['url']})" for d in docs)
-        block = f"## Documentation\n\n{body}\n\n_Living Docs — maintained by the [Documentation System](https://linear.app/failpunkllc/initiative/documentation-system-75b5f0c34e5a)._"
+        block = f"## Documentation\n\n{body}\n\n_Living Docs._"
     else:
         block = "## Documentation\n\n_No Living Docs yet._"
     new_content = _splice_doc_index(proj.get("content") or "", block)

@@ -20,7 +20,7 @@ If a project's norms diverge from this lifecycle, follow the project. Multiple `
 
 ## Project status roll-up (promote-only)
 
-Slice transitions also roll up to the parent project, in one direction only (full rules: [Project hygiene](https://linear.app/failpunkllc/document/project-hygiene-26c390f7c1ab)):
+Slice transitions also roll up to the parent project, in one direction only (full rules: [Project hygiene](./project-hygiene.md)):
 
 * A slice entering `In Progress` promotes its project from Backlog/Planned to In Progress (skipped when already there, and for machine-hub projects).
 * Nothing in the automation ever demotes a project or marks it Completed. Completing a project always requires the user's explicit OK.
@@ -32,7 +32,19 @@ Slice transitions also roll up to the parent project, in one direction only (ful
 * `linear.py set-state <key> <state-name>` — set state to a named state (case-insensitive). Idempotent.
 * `linear.py mark-done <key>` — set state to a `completed`-type state. Works regardless of the team's exact "Done" state name.
 
+## Closing a slice (wrap-up comment required)
+
+Whenever a slice is closed (via `mark-done`, the `/checklist:slice done` flow, or a natural-language "close this slice" / "wrap this up"), post a wrap-up **comment** on that slice. This is required, not optional: it is the human-readable record of how the slice ended, so a person can understand the outcome later without reverse-engineering the checkboxes.
+
+The comment, in clean Linear-rendered markdown, states:
+
+* **Final state** of the slice (Done, or why it was closed).
+* **What was done** — the completed items, i.e. what actually landed.
+* **Any other updates** — items carried forward (and to which new slice), decisions made, follow-ups, or why open items were dropped.
+
+Post it with `linear.py create-comment <key> -` (markdown on stdin). Keep it concise and concrete.
+
 ## See also
 
-* [Slice body structure](https://linear.app/failpunkllc/document/slice-body-structure-e645fed13bcc)
-* [The linear.py wrapper](https://linear.app/failpunkllc/document/the-linearpy-wrapper-cf39f31f964f)
+* [Slice body structure](./slice-body-structure.md)
+* [The linear.py wrapper](./the-linearpy-wrapper.md)

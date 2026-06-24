@@ -18,6 +18,6 @@ The checklist system silently doesn't apply. Don't suggest onboarding mid-task â
 
 ## See also
 
-* [Detection](https://linear.app/failpunkllc/document/detection-da35396daa21)
-* [Overview](https://linear.app/failpunkllc/document/overview-93132484f842)
-* [Slice body structure](https://linear.app/failpunkllc/document/slice-body-structure-e645fed13bcc)
+* [Detection](./detection.md)
+* [Overview](./overview.md)
+* [Slice body structure](./slice-body-structure.md)

@@ -1,7 +1,7 @@
 #!/bin/sh
 # Optional Claude Code status-line widget for the checklist plugin.
 #
-# Shows the current slice's progress, e.g.  FAIL-123 ▰▰▰▱▱▱▱ 3/7  — read from the
+# Shows the current slice's progress, e.g.  ABC-123 ▰▰▰▱▱▱▱ 3/7  — read from the
 # local .checklist.state.json cache the plugin maintains (zero network, pure file
 # read). Falls back to the current folder's name when no slice governs the cwd.
 #

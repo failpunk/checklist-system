@@ -17,5 +17,5 @@ Checkboxes always at the **top**; blank lines, then plan content below. Reason: 
 
 ## See also
 
-* [Slice state lifecycle](https://linear.app/failpunkllc/document/slice-state-lifecycle-c7e2df5dc679)
-* [The linear.py wrapper](https://linear.app/failpunkllc/document/the-linearpy-wrapper-cf39f31f964f)
+* [Slice state lifecycle](./slice-state-lifecycle.md)
+* [The linear.py wrapper](./the-linearpy-wrapper.md)

@@ -83,8 +83,30 @@ The user's argument is in `$ARGUMENTS`. Branch on its shape:
    ```
 
    (Items also remain in the closed slice — that's intentional history. Don't try to remove them.)
-9. Update `.checklist.json`: set `current_slice_issue` to the new key.
-10. Confirm:
+9. **Post the wrap-up comment** (required) on the slice you just closed. Compose a concise, human-readable markdown summary and post it via stdin:
+
+   ```
+   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/linear.py" create-comment <current_slice_issue> -
+   ```
+
+   Build the markdown from the saved body and what you just did, following this shape:
+
+   ```
+   ## Slice wrap-up
+
+   **Final state:** Done
+
+   **What landed:**
+   - <each completed `- [X]` item from the saved body, in order>
+
+   **Carried forward:** <N item(s) to <new-key>>, or "None".
+
+   **Notes:** <decisions, follow-ups, or why any open items were dropped, if any>
+   ```
+
+   Keep it concrete; if there were no completed items, say so plainly instead of padding. This is required on every close (see [Slice state lifecycle](${CLAUDE_PLUGIN_ROOT}/spec/slice-state-lifecycle.md) and [Hard rules](${CLAUDE_PLUGIN_ROOT}/spec/hard-rules.md)).
+10. Update `.checklist.json`: set `current_slice_issue` to the new key.
+11. Confirm:
 
     ```
     Closed <old-key> ("<old-title>"). Created <new-key>: "<auto-title>". Carried forward N items.

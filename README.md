@@ -85,7 +85,7 @@ slice. From then on, every Claude session in that directory loads the slice and 
 ## Status bar widget (optional)
 
 A small status-line widget shows your current slice's progress — e.g.
-`FAIL-123 ▰▰▰▱▱▱▱ 3/7` — read from the local `.checklist.state.json` cache (no
+`ABC-123 ▰▰▰▱▱▱▱ 3/7` — read from the local `.checklist.state.json` cache (no
 network). It falls back to the folder name when no slice is active.
 
 To enable it:

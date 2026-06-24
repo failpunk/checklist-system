@@ -21,5 +21,5 @@ Statements about state (not work) are NOT todo-shaped: "the build is broken" by 
 
 ## See also
 
-* [Natural-language translation](https://linear.app/failpunkllc/document/natural-language-translation-64e08ac342ac)
-* [Hard rules](https://linear.app/failpunkllc/document/hard-rules-f2f5a01594d2)
+* [Natural-language translation](./natural-language-translation.md)
+* [Hard rules](./hard-rules.md)

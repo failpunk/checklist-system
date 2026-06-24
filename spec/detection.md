@@ -6,5 +6,5 @@ When the system doesn't apply, existing project conventions (`TODO.md`, scattere
 
 ## See also
 
-* [The .checklist.json file](https://linear.app/failpunkllc/document/the-checklistjson-file-42b14155210c)
-* [Coexistence](https://linear.app/failpunkllc/document/coexistence-33eeefd6b24e)
+* [The .checklist.json file](./the-checklistjson-file.md)
+* [Coexistence](./coexistence.md)

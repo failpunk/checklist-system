@@ -25,7 +25,7 @@ All Linear interactions go through `linear.py`. Use this, not direct GraphQL —
 | `list-labels <team>` | Labels in the team. |
 | `list-open-slices <team> <project>` | Open slices in a project. |
 | `audit-projects <team>` | Read-only project-hygiene audit of a whole team: per-project status, description length, resource presence, open slices, and flags (`needs_promotion`, `missing_description`, `missing_resources`, `status_possibly_stale`). Only `needs_promotion` should trigger a write (promote-only). |
-| `create-project <team> <name> <description \| -for-stdin> [--color <hex>]` | Create a Linear project. Description is required ([Project hygiene](https://linear.app/failpunkllc/document/project-hygiene-26c390f7c1ab)): what it is, where it lives on disk, how to pick it up cold. Defaults to blue `#26b5ce`. |
+| `create-project <team> <name> <description \| -for-stdin> [--color <hex>]` | Create a Linear project. Description is required ([Project hygiene](./project-hygiene.md)): what it is, where it lives on disk, how to pick it up cold. Defaults to blue `#26b5ce`. |
 | `update-project <team> <name> [--description <text \| ->] [--content <markdown \| ->] [--status <name>]` | Update a project's short description (list view, 255-char cap), overview body, and/or status. At least one flag. |
 | `add-project-resource <team> <name> <url> <label...>` | Add a link to the project's Resources section (spec, plan, Living Docs). |
 | `post-project-update <team> <name> <body \| -for-stdin> [--health onTrack\|atRisk\|offTrack]` | Post a project update (the Health column). Defaults to onTrack. Post on milestones: slice done, project state change. |
@@ -52,7 +52,7 @@ All Linear interactions go through `linear.py`. Use this, not direct GraphQL —
 
 ## Creating object types (and their colors)
 
-Every Linear object type has a standard color in this workspace (see [Cross-entity references](https://linear.app/failpunkllc/document/cross-entity-references-50847ab1bae9) for the full scheme). When you create an object, attach its color:
+Every Linear object type has a standard color in this workspace (see [Cross-entity references](./cross-entity-references.md) for the full scheme). When you create an object, attach its color:
 
 | Object type | How to create | Color | Hex |
 | -- | -- | -- | -- |
@@ -65,10 +65,10 @@ The color defaults live in `linear.py` as `DEFAULT_INITIATIVE_COLOR`, `DEFAULT_P
 
 ## API key
 
-The wrapper reads the API key from `$LINEAR_FAILPUNK_API_KEY` (set in `~/.zshrc`) or `~/.config/checklist/api-key` (mode 600) as fallback. All errors exit non-zero with a clear message; surface them verbatim if the user needs to see them.
+The wrapper reads the API key from `$LINEAR_API_KEY`, the macOS Keychain (service `linear-checklist`), or `~/.config/checklist/api-key` (mode 600), in that order. All errors exit non-zero with a clear message; surface them verbatim if the user needs to see them.
 
 ## See also
 
-* [Cross-entity references](https://linear.app/failpunkllc/document/cross-entity-references-50847ab1bae9)
-* [Natural-language translation](https://linear.app/failpunkllc/document/natural-language-translation-64e08ac342ac)
-* [Project hygiene](https://linear.app/failpunkllc/document/project-hygiene-26c390f7c1ab)
+* [Cross-entity references](./cross-entity-references.md)
+* [Natural-language translation](./natural-language-translation.md)
+* [Project hygiene](./project-hygiene.md)

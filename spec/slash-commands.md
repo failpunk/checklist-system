@@ -17,5 +17,5 @@ The user mostly speaks naturally; you translate. Slash commands exist for the ra
 
 ## See also
 
-* [Natural-language translation](https://linear.app/failpunkllc/document/natural-language-translation-64e08ac342ac)
-* [Capture mode](https://linear.app/failpunkllc/document/capture-mode-6103e77ae078)
+* [Natural-language translation](./natural-language-translation.md)
+* [Capture mode](./capture-mode.md)

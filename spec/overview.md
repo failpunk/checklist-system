@@ -4,11 +4,11 @@ A personal cross-project checklist tracker backed by Linear. When `.checklist.js
 
 | Artifact | What it is | Single source | Distribution |
 | -- | -- | -- | -- |
-| **Spec** | The documents in this initiative | Linear initiative `Checklist System` | SessionStart hook fetches per session |
+| **Spec** | These documents | Bundled with the plugin (`spec/`) | SessionStart hook loads per session |
 | **Tooling** | `linear.py`, hook script, slash command files | The `checklist` Claude Code plugin | Plugin install + user-level command files |
-| **Per-user config** | `LINEAR_FAILPUNK_API_KEY` env var | User shell config (`~/.zshrc`) | Documented in plugin README |
+| **Per-user config** | `LINEAR_API_KEY` env var | User shell config | Documented in plugin README |
 
-The spec lives at the [Checklist System initiative](<https://linear.app/failpunkllc/initiative/checklist-system-619094c78b45>). Each document below covers one concept; documents cross-reference each other using their canonical Linear URLs.
+The spec ships bundled with the plugin in the `spec/` directory. Each document below covers one concept; they cross-reference each other as relative files in that directory.
 
 ## Two audiences
 
@@ -19,5 +19,5 @@ Slash commands (`/checklist:*`) are escape hatches for explicit user control; do
 
 ## See also
 
-* [Detection](https://linear.app/failpunkllc/document/detection-da35396daa21)
-* [The .checklist.json file](https://linear.app/failpunkllc/document/the-checklistjson-file-42b14155210c)
+* [Detection](./detection.md)
+* [The .checklist.json file](./the-checklistjson-file.md)

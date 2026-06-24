@@ -46,12 +46,12 @@ Three artifacts, three distribution mechanisms:
 
 | Artifact | What it is | Single source | Distribution |
 | -- | -- | -- | -- |
-| **Spec** | These documents | Failpunk team documents | SessionStart hook loads this page per session |
+| **Spec** | These documents | Bundled with the plugin (`spec/`) | SessionStart hook loads this page per session |
 | **Tooling** | `linear.py`, hook script, slash command files | The `checklist` Claude Code plugin | Plugin install + user-level command files |
-| **Per-user config** | `LINEAR_FAILPUNK_API_KEY` env var | User shell config | Documented in plugin README |
+| **Per-user config** | `LINEAR_API_KEY` env var | User shell config | Documented in plugin README |
 
 Scope: Claude Code only for v1. Non-CC agents (Cursor, Cline, etc) are a future concern.
 
 ## Editing the spec
 
-The single source of truth is the Failpunk team's documents. Edit them in Linear's web UI (or via `linear.py update-document`); the next session start picks up the new content. Don't maintain a local copy.
+The spec ships bundled with the plugin in the `spec/` directory. To change it, edit those files and reinstall the plugin; the next session start picks up the new content.

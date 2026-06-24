@@ -2,19 +2,19 @@ When body content references another Linear entity (issue, project, initiative, 
 
 ## Canonical URL patterns
 
-* **Issue**: `https://linear.app/failpunkllc/issue/<key>/<slug>` — get from `linear.py get-issue <key>` (the `url` field).
-* **Project**: `https://linear.app/failpunkllc/project/<slug>-<id>` — get from the Linear UI or via the project's URL field.
-* **Initiative**: `https://linear.app/failpunkllc/initiative/<slug>-<id>` — get from `linear.py get-initiative <name>`.
-* **Document**: `https://linear.app/failpunkllc/document/<slug>-<id>` — get from `linear.py get-document <id>` or `list-initiative-documents <initiative>`.
+* **Issue**: `https://linear.app/<workspace>/issue/<key>/<slug>` — get from `linear.py get-issue <key>` (the `url` field).
+* **Project**: `https://linear.app/<workspace>/project/<slug>-<id>` — get from the Linear UI or via the project's URL field.
+* **Initiative**: `https://linear.app/<workspace>/initiative/<slug>-<id>` — get from `linear.py get-initiative <name>`.
+* **Document**: `https://linear.app/<workspace>/document/<slug>-<id>` — get from `linear.py get-document <id>` or `list-initiative-documents <initiative>`.
 
 ## Live examples
 
 Here are examples of each entity type as a native Linear link. In the Linear UI these render as rich cards with title, state, and an icon. In the markdown body they're stored as plain URLs.
 
-* **Initiative**: [Checklist System](https://linear.app/failpunkllc/initiative/checklist-system-619094c78b45)
-* **Project**: [Clip Cabinet](https://linear.app/failpunkllc/project/clip-cabinet-a1f7bbef52c8)
-* **Issue**: [FAIL-33](https://linear.app/failpunkllc/issue/FAIL-33/checklist-system-package-as-portable-claude-code-plugin-linear-initiative-spec)
-* **Document** (another doc in this initiative): [The linear.py wrapper](https://linear.app/failpunkllc/document/the-linearpy-wrapper-cf39f31f964f)
+* **Initiative**: [Your Initiative](https://linear.app/<workspace>/initiative/<slug>-<id>)
+* **Project**: [Your Project](https://linear.app/<workspace>/project/<slug>-<id>)
+* **Issue**: [ABC-123](https://linear.app/<workspace>/issue/ABC-123/<slug>)
+* **Document**: [Another Doc](https://linear.app/<workspace>/document/<slug>-<id>)
 
 Each rendered as a card. The markdown stored is just the bare URL on its own line; Linear's renderer does the rest.
 
@@ -40,5 +40,5 @@ Linear auto-converts strings like `CLAUDE.md` (anything ending in `.md`) into `[
 
 ## See also
 
-* [The linear.py wrapper](https://linear.app/failpunkllc/document/the-linearpy-wrapper-cf39f31f964f)
-* [Overview](https://linear.app/failpunkllc/document/overview-93132484f842)
+* [The linear.py wrapper](./the-linearpy-wrapper.md)
+* [Overview](./overview.md)
