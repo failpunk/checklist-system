@@ -1,6 +1,6 @@
 ---
 name: new
-description: Add a checklist item to the current slice in Failpunk Linear (FAIL-### slice issues)
+description: Add a checklist item to the current slice (a Linear slice issue)
 ---
 
 Add a checklist item to the current slice's description body.
@@ -9,21 +9,21 @@ User-supplied item text is in `$ARGUMENTS`. If empty, ask the user for the text 
 
 ## Steps
 
-1. Locate `.checklist.json` per the [Detection](https://linear.app/failpunkllc/document/detection-da35396daa21) rules.
+1. Locate `.checklist.json` per the [Detection](${CLAUDE_PLUGIN_ROOT}/spec/detection.md) rules.
 2. If none found, tell the user there's no checklist set up here and stop.
 3. Extract `project` and `current_slice_issue`.
 4. If `current_slice_issue` is `null`, tell the user no slice is set and stop.
 5. Fetch the issue to verify state:
 
    ```
-   python3 ~/.claude-adly/plugins/checklist/scripts/linear.py get-issue <current_slice_issue>
+   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/linear.py" get-issue <current_slice_issue>
    ```
 
 6. If `state.type == "completed"` or state name is "Done", tell the user the slice is complete and stop.
 7. Append the checkbox:
 
    ```
-   python3 ~/.claude-adly/plugins/checklist/scripts/linear.py append-checkbox <current_slice_issue> "<text>"
+   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/linear.py" append-checkbox <current_slice_issue> "<text>"
    ```
 
    Make sure the text is properly quoted to handle spaces and special characters.
@@ -37,7 +37,7 @@ If any wrapper command exits non-zero, surface the error message verbatim. Do no
 
 ## Relevant spec docs
 
-- [Detection](https://linear.app/failpunkllc/document/detection-da35396daa21) — finding `.checklist.json`
-- [The linear.py wrapper](https://linear.app/failpunkllc/document/the-linearpy-wrapper-cf39f31f964f) — `get-issue` and `append-checkbox` reference
-- [Slice body structure](https://linear.app/failpunkllc/document/slice-body-structure-e645fed13bcc) — where `append-checkbox` inserts the item
-- [Capture mode](https://linear.app/failpunkllc/document/capture-mode-6103e77ae078) — when to capture without asking vs. confirm first
+- [Detection](${CLAUDE_PLUGIN_ROOT}/spec/detection.md) — finding `.checklist.json`
+- [The linear.py wrapper](${CLAUDE_PLUGIN_ROOT}/spec/the-linearpy-wrapper.md) — `get-issue` and `append-checkbox` reference
+- [Slice body structure](${CLAUDE_PLUGIN_ROOT}/spec/slice-body-structure.md) — where `append-checkbox` inserts the item
+- [Capture mode](${CLAUDE_PLUGIN_ROOT}/spec/capture-mode.md) — when to capture without asking vs. confirm first

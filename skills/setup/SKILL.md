@@ -1,36 +1,47 @@
 ---
 name: setup
-description: Bootstrap the personal checklist system (Failpunk Linear) in the current directory, including migration of existing todos
+description: Bootstrap the checklist system (Linear-backed) in the current directory, including migration of existing todos
 ---
 
-Onboard the user's current directory into the personal checklist tracking system. This drives a multi-step conversational flow with the user — pause at each question and wait for their answer; don't bulk-execute.
+Onboard the user's current directory into the checklist tracking system. This drives a multi-step conversational flow with the user — pause at each question and wait for their answer; don't bulk-execute.
 
-The team is always `Failpunk` (the only team in this v1 system) — don't ask about it.
+The Linear **team** is provided by the user during setup (step 1) and stored in `.checklist.json`. It is not hardcoded.
 
-All Linear interactions go through `~/.claude-adly/plugins/checklist/scripts/linear.py`.
+All Linear interactions go through `${CLAUDE_PLUGIN_ROOT}/scripts/linear.py`.
 
-## 1. Pre-flight check
+## 1. Pre-flight check + team
 
-Run via Bash:
+First, validate the Linear API key via Bash:
 
 ```
-python3 ~/.claude-adly/plugins/checklist/scripts/linear.py list-projects Failpunk
+python3 "${CLAUDE_PLUGIN_ROOT}/scripts/linear.py" whoami
 ```
 
 If the wrapper errors with "no Linear API key found", stop and tell the user:
 
 > The Linear API key isn't set up. Once it is, re-run `/checklist:setup`.
 >
-> - Linear UI → Settings → API → Personal API keys → Create (in the `failpunkllc` workspace)
-> - Then either:
->   - Add to `~/.zshrc`: `export LINEAR_FAILPUNK_API_KEY="lin_api_..."` and `source ~/.zshrc`
->   - OR save to `~/.config/checklist/api-key` with `chmod 600`
+> - Create a personal API key (needs read + write): Linear → Settings → API → Personal API keys, or <https://linear.app/settings/api>
+> - Then provide it one of three ways (checked in this order):
+>   - Env var: add `export LINEAR_API_KEY="lin_api_..."` to your shell profile and reload it
+>   - macOS Keychain: `security add-generic-password -U -s linear-checklist -a "$USER" -w`
+>   - File: save to `~/.config/checklist/api-key` (then `chmod 600`)
 
-If the wrapper succeeds, hold the project list — you'll use it in step 4.
+If `whoami` succeeds, ask the user which Linear team should track this project's slices:
+
+> *Which Linear team should track this project's slices? (the team name as it appears in Linear)*
+
+When they answer, validate the team and fetch its project list via Bash:
+
+```
+python3 "${CLAUDE_PLUGIN_ROOT}/scripts/linear.py" list-projects "<team>"
+```
+
+If that errors (e.g. unknown team), surface the message and re-ask for the team. On success, capture the team name — you'll write it to `.checklist.json` in step 9 — and hold the project list for step 4.
 
 ## 2. Detect existing config
 
-Walk up from CWD looking for `.checklist.json` per the [Detection](https://linear.app/failpunkllc/document/detection-da35396daa21) rules.
+Walk up from CWD looking for `.checklist.json` per the [Detection](${CLAUDE_PLUGIN_ROOT}/spec/detection.md) rules.
 
 - **None found** → continue to step 3.
 - **Found at CWD itself** → say briefly: "There's already a `.checklist.json` here pointing at `<project>` / `<slice-key>`." Then ask the obvious binary question: *"Overwrite or keep the existing one? (default: keep)"*. Stop unless they choose overwrite.
@@ -58,16 +69,16 @@ Show the user the project list from step 1 (one per line). Ask:
 
 > *Does this belong to an existing Linear project? (Or provide a new project name for Linear.)*
 
-When they answer, check whether their response matches an existing project name (case-insensitive). If it matches, use it. If it doesn't match any existing project, briefly confirm: *"Create new project '<X>'? (y/n, default y)"*. On yes, draft a description per the [Project hygiene](https://linear.app/failpunkllc/document/project-hygiene-26c390f7c1ab) bar (what this is, where it lives on disk, how to pick it up cold), confirm the wording with the user, then run via Bash:
+When they answer, check whether their response matches an existing project name (case-insensitive). If it matches, use it. If it doesn't match any existing project, briefly confirm: *"Create new project '<X>'? (y/n, default y)"*. On yes, draft a description per the [Project hygiene](${CLAUDE_PLUGIN_ROOT}/spec/project-hygiene.md) bar (what this is, where it lives on disk, how to pick it up cold), confirm the wording with the user, then run via Bash:
 
 ```
-python3 ~/.claude-adly/plugins/checklist/scripts/linear.py create-project Failpunk "<name>" "<description>"
+python3 "${CLAUDE_PLUGIN_ROOT}/scripts/linear.py" create-project "<team>" "<name>" "<description>"
 ```
 
 The description is required; the wrapper rejects a bare name. If a spec or plan document already exists for this work, attach it as a project resource in the same step:
 
 ```
-python3 ~/.claude-adly/plugins/checklist/scripts/linear.py add-project-resource Failpunk "<name>" "<url>" "<link label>"
+python3 "${CLAUDE_PLUGIN_ROOT}/scripts/linear.py" add-project-resource "<team>" "<name>" "<url>" "<link label>"
 ```
 
 Capture the project name.
@@ -79,7 +90,7 @@ _(A project joins the system by having a `.checklist.json` that names its Linear
 Run via Bash:
 
 ```
-python3 ~/.claude-adly/plugins/checklist/scripts/linear.py list-labels Failpunk
+python3 "${CLAUDE_PLUGIN_ROOT}/scripts/linear.py" list-labels "<team>"
 ```
 
 Show the labels. Ask:
@@ -89,7 +100,7 @@ Show the labels. Ask:
 When they answer, check whether their response matches an existing label (case-insensitive). If it matches, use it. If it doesn't match, briefly confirm: *"Create new label '<X>'? (y/n, default y)"*. On yes, run:
 
 ```
-python3 ~/.claude-adly/plugins/checklist/scripts/linear.py create-label Failpunk "<name>"
+python3 "${CLAUDE_PLUGIN_ROOT}/scripts/linear.py" create-label "<team>" "<name>"
 ```
 
 Capture the label name.
@@ -100,14 +111,14 @@ Ask:
 
 > *Suggest new items when I notice todos in our chat? (y/n, default y)*
 
-Map: yes → `ask`; no → `explicit`. See [Capture mode](https://linear.app/failpunkllc/document/capture-mode-6103e77ae078) for the semantics of each.
+Map: yes → `ask`; no → `explicit`. See [Capture mode](${CLAUDE_PLUGIN_ROOT}/spec/capture-mode.md) for the semantics of each.
 
 ## 7. Initial slice
 
 Run via Bash:
 
 ```
-python3 ~/.claude-adly/plugins/checklist/scripts/linear.py list-open-slices Failpunk "<project>"
+python3 "${CLAUDE_PLUGIN_ROOT}/scripts/linear.py" list-open-slices "<team>" "<project>"
 ```
 
 If there are open slices, show them. Ask:
@@ -123,7 +134,7 @@ Tip: for Personal-style buckets that don't transition slices, suggest a perpetua
 When they answer, check whether their response matches an existing slice's identifier or title. If it matches, capture the identifier. If it doesn't match, treat it as a new slice title and run:
 
 ```
-python3 ~/.claude-adly/plugins/checklist/scripts/linear.py create-issue Failpunk "<project>" "<title>" "<label>"
+python3 "${CLAUDE_PLUGIN_ROOT}/scripts/linear.py" create-issue "<team>" "<project>" "<title>" "<label>"
 ```
 
 Capture the new identifier from the JSON output.
@@ -156,7 +167,7 @@ If items were found, walk through them grouped by source file. Default behavior:
 For each accepted item:
 
 ```
-python3 ~/.claude-adly/plugins/checklist/scripts/linear.py append-checkbox <slice-key> "<item text>"
+python3 "${CLAUDE_PLUGIN_ROOT}/scripts/linear.py" append-checkbox <slice-key> "<item text>"
 ```
 
 After migration completes, for each source file you migrated items from, ask:
@@ -174,11 +185,11 @@ After migration completes, for each source file you migrated items from, ask:
 
 ## 9. Write `.checklist.json`
 
-Write to `<CWD>/.checklist.json` following the schema in [The .checklist.json file](https://linear.app/failpunkllc/document/the-checklistjson-file-42b14155210c):
+Write to `<CWD>/.checklist.json` following the schema in [The .checklist.json file](${CLAUDE_PLUGIN_ROOT}/spec/the-checklistjson-file.md):
 
 ```json
 {
-  "team": "Failpunk",
+  "team": "<team>",
   "project": "<project>",
   "label": "<label>",
   "current_slice_issue": "<slice-key>",
@@ -186,14 +197,15 @@ Write to `<CWD>/.checklist.json` following the schema in [The .checklist.json fi
 }
 ```
 
-(Don't include `team` as a question — it's always `Failpunk` in v1.)
+Use the team captured in step 1, the project from step 4, the label from step 5, the slice key from step 7, and the capture mode from step 6.
 
 ## 10. Confirm
 
-Run `linear.py get-issue <slice-key>` to fetch the slice's URL. Then display:
+Run `python3 "${CLAUDE_PLUGIN_ROOT}/scripts/linear.py" get-issue <slice-key>` to fetch the slice's URL. Then display:
 
 ```
 Onboarded <CWD>:
+- Linear team: <team>
 - Linear project: <project>
 - Label: <label>
 - Current slice: <slice-key> "<title>" — <url>
@@ -211,9 +223,9 @@ Try `/checklist:status` or just ask "what's on my plate" to see your current ite
 
 ## Relevant spec docs
 
-- [Overview](https://linear.app/failpunkllc/document/overview-93132484f842) — what onboarding actually enables
-- [Detection](https://linear.app/failpunkllc/document/detection-da35396daa21) — how the system finds `.checklist.json`
-- [The .checklist.json file](https://linear.app/failpunkllc/document/the-checklistjson-file-42b14155210c) — schema and field semantics
-- [Capture mode](https://linear.app/failpunkllc/document/capture-mode-6103e77ae078) — `ask` vs `explicit`
-- [The linear.py wrapper](https://linear.app/failpunkllc/document/the-linearpy-wrapper-cf39f31f964f) — full subcommand reference
-- [Coexistence](https://linear.app/failpunkllc/document/coexistence-33eeefd6b24e) — how the system relates to `TODO.md` and plan files (relevant during migration scan)
+- [Overview](${CLAUDE_PLUGIN_ROOT}/spec/overview.md) — what onboarding actually enables
+- [Detection](${CLAUDE_PLUGIN_ROOT}/spec/detection.md) — how the system finds `.checklist.json`
+- [The .checklist.json file](${CLAUDE_PLUGIN_ROOT}/spec/the-checklistjson-file.md) — schema and field semantics
+- [Capture mode](${CLAUDE_PLUGIN_ROOT}/spec/capture-mode.md) — `ask` vs `explicit`
+- [The linear.py wrapper](${CLAUDE_PLUGIN_ROOT}/spec/the-linearpy-wrapper.md) — full subcommand reference
+- [Coexistence](${CLAUDE_PLUGIN_ROOT}/spec/coexistence.md) — how the system relates to `TODO.md` and plan files (relevant during migration scan)
