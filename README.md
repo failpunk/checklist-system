@@ -5,9 +5,38 @@ project keeps its high-level todos in a Linear **"slice" issue**;
 Claude loads that slice (and the system's spec) into context at the start of every session, so
 your agent always knows what's on your plate and updates it as work completes.
 
-Everything ships **bundled** in the plugin — the spec, the slash-command skills, a SessionStart
-hook that auto-loads your current slice each session, the `linear.py` API wrapper, and an
-optional status-bar widget.
+## Install
+
+**Prerequisites:** Claude Code · **Python 3** on your PATH (runs `linear.py` + the hooks) · a
+**Linear** account + a **personal API key** with read + write (<https://linear.app/settings/api>) ·
+**macOS or Linux** (hooks are bash + Python; on Windows use WSL or Git Bash).
+
+**1. Add the marketplace and install the plugin** in Claude Code:
+
+```
+/plugin marketplace add https://github.com/failpunk/checklist-system
+/plugin install checklist@checklist-system
+```
+
+Use the full HTTPS URL (not the `owner/repo` shorthand) so the marketplace clones over HTTPS
+(no GitHub SSH key required). Installing registers the slash commands and the SessionStart hook
+automatically (via the plugin's `hooks.json`) — no manual settings.json editing.
+
+**2. Set your Linear API key** one of three ways (checked in this order):
+
+1. Env var: `export LINEAR_API_KEY="lin_api_..."`
+2. macOS Keychain (macOS only): `security add-generic-password -U -s linear-checklist -a "$USER" -w`
+3. File: `~/.config/checklist/api-key` (chmod 600)
+
+**3. Onboard a project.** In your Linear workspace, create a **Team** and a **Project** (and
+optionally a label). Then, in any repo:
+
+```
+/checklist:setup
+```
+
+This writes a `.checklist.json` (team / project / label / capture_mode) and creates your first
+slice. From then on, every Claude session in that directory loads the slice and the spec.
 
 ## Why we built it
 
@@ -21,51 +50,15 @@ always knows the plan without re-briefing.
 
 ## What you get
 
+Everything ships **bundled** in the plugin — the spec, the slash-command skills, a SessionStart
+hook that auto-loads your current slice each session, the `linear.py` API wrapper, and an
+optional status-bar widget.
+
 - A `.checklist.json` in any repo marks it as tracked. A SessionStart hook detects it and injects
   the current slice + the spec into context.
 - Slash commands to manage slices: `/checklist:setup`, `/checklist:slice`, `/checklist:status`,
   `/checklist:new`.
 - A Python wrapper (`scripts/linear.py`) the agent uses for all Linear operations.
-
-## Prerequisites
-
-- **Claude Code.**
-- **Python 3** on your PATH (the `linear.py` wrapper and the hooks run on it).
-- **macOS or Linux** (the hooks and tooling are bash + Python; on Windows use WSL or Git Bash).
-- A **Linear** account + workspace (the free plan is fine; the tooling includes an `archive-issue`
-  command for the 250-active-issue cap).
-- A Linear **personal API key**: <https://linear.app/settings/api> (needs read + write).
-
-## Install
-
-```
-/plugin marketplace add https://github.com/failpunk/checklist-system
-/plugin install checklist@checklist-system
-```
-
-Use the full HTTPS URL (not the `owner/repo` shorthand) so the marketplace clones over HTTPS
-(no GitHub SSH key required). Installing registers the slash commands and the SessionStart hook
-automatically (via the plugin's `hooks.json`) — no manual settings.json editing.
-
-## Set up your API key
-
-Provide your Linear key one of three ways (checked in this order):
-
-1. Env var: `export LINEAR_API_KEY="lin_api_..."`
-2. macOS Keychain (macOS only): `security add-generic-password -U -s linear-checklist -a "$USER" -w`
-3. File: `~/.config/checklist/api-key` (chmod 600)
-
-## Onboard a project
-
-In your Linear workspace, create a **Team** and a **Project** (and optionally a label). Then, in
-any repo:
-
-```
-/checklist:setup
-```
-
-This writes a `.checklist.json` (team / project / label / capture_mode) and creates your first
-slice. From then on, every Claude session in that directory loads the slice and the spec.
 
 ## How it works
 
