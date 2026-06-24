@@ -1,5 +1,6 @@
 {
   "name": "checklist-system",
+  "description": "Linear Checklist System: a cross-project, Linear-backed todo tracker for Claude Code, shipped as an installable plugin.",
   "owner": {
     "name": "Justin Vencel"
   },
