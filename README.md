@@ -8,10 +8,11 @@ your plate and updates it as work completes.
 The spec ships **bundled** with the plugin (`spec/`), so it works against *your own* Linear
 workspace — no access to anyone else's workspace required.
 
-> **Why does this exist?** Coding agents are stateless between sessions — they forget your
-> project's plan every time. This keeps "what matters and what's next" in Linear (a shared
-> human + agent source of truth) and auto-loads it every session, so the agent always knows
-> where things stand. Full rationale: **[PHILOSOPHY.md](./PHILOSOPHY.md)**.
+> **Why does this exist?** When you're orchestrating AI changes instead of hand-writing code, a
+> swarm of small Linear tickets becomes unmanageable. So each project's work lives as larger,
+> self-contained **slices** — one Linear issue holds the whole checklist + plan — and loads into
+> every session automatically, so the agent always knows the plan. Full rationale:
+> **[PHILOSOPHY.md](./PHILOSOPHY.md)**.
 
 ## What you get
 
