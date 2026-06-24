@@ -7,6 +7,41 @@ your agent always knows what's on your plate and updates it as work completes.
 
 ## Install
 
+### Fastest: paste one prompt to your agent
+
+Open Claude Code and paste this. It installs the plugin, sets up your key, and onboards a repo:
+
+```
+Install and set up the Linear Checklist System plugin for Claude Code
+(https://github.com/failpunk/checklist-system). Please:
+
+1. Install it by running in the terminal:
+     claude plugin marketplace add https://github.com/failpunk/checklist-system
+     claude plugin install checklist@checklist-system
+   (or tell me to type the /plugin equivalents). Confirm it installed.
+
+2. Set up my Linear API key. Ask me for a Linear personal API key with read +
+   write access (I can create one at https://linear.app/settings/api). When I
+   paste it, store it WITHOUT printing it back: on macOS run
+     security add-generic-password -U -s linear-checklist -a "$USER" -w
+   otherwise write it to ~/.config/checklist/api-key and chmod 600. Also export
+   LINEAR_API_KEY in the current shell so the next step works.
+
+3. Verify it: find the installed plugin's scripts/linear.py and run
+   `python3 <that path>/linear.py whoami`; confirm it returns my Linear identity.
+
+4. The plugin's /checklist:* commands and session hook load on restart. Tell me
+   to restart Claude Code, then run /checklist:setup in the repo I want to track
+   (I'll need a Linear Team + Project to point it at first).
+
+Never print my API key back to me.
+```
+
+You'll need **Python 3** on your PATH and **macOS or Linux** (hooks are bash + Python; on Windows
+use WSL or Git Bash). The agent walks you through everything else.
+
+### Or do it manually
+
 **Prerequisites:** Claude Code · **Python 3** on your PATH (runs `linear.py` + the hooks) · a
 **Linear** account + a **personal API key** with read + write (<https://linear.app/settings/api>) ·
 **macOS or Linux** (hooks are bash + Python; on Windows use WSL or Git Bash).
