@@ -12,31 +12,13 @@ anyone else's required.
 
 ## Why we built it
 
-Before AI, small, individually-scoped issues were the norm — work kept simple and small because
-a human wrote every line. As we shift to writing nearly zero code by hand and instead
-**orchestrating many changes at once**, that model breaks down: a swarm of small Linear tickets
-becomes overwhelming to track — the bookkeeping outgrows the building.
+Before AI, work was tracked as many small, human-sized issues. When you're orchestrating changes
+instead of hand-writing code, that swarm of tickets becomes more bookkeeping than building.
 
-Taking inspiration from Claude's "superpowers" skills, which natively write work out as
-**slices**, this system still leverages Linear but packs everything an individual slice needs
-**inside one Linear issue** — the checklist of steps and the plan both live in the issue body.
-Each issue is a larger chunk you can deliver in one pass while keeping scope manageable: fewer,
-bigger, self-contained units instead of a swarm of micro-tickets.
-
-A slice is also the agent's memory. Coding agents are stateless between sessions — they start
-cold and forget the plan; `TODO.md` files drift and a session's task list is ephemeral. So the
-current slice loads into context automatically at the start of every session, and the agent
-reads and updates it as work happens. The throughline:
-
-- **Durable over ephemeral** — the slice is the backbone; a session's task list is scratch paper.
-- **One source of truth, two audiences** — you manage slices in Linear's UI; the agent manages
-  the same issues programmatically.
-- **Loaded every session** — continuity comes from the hook, not from discipline or luck.
-- **Talk, don't type** — you speak naturally; the agent translates intent into Linear ops.
-
-The bet: size the unit of work for an orchestrator, not a hand-coder, and make it load itself
-every session — so you spend your time deciding *what* to build, not juggling a hundred tickets
-or re-explaining where things stand.
+Inspired by Claude's "superpowers" slices, this packs a whole unit of work — checklist *and* plan
+— into **one Linear issue**: fewer, bigger, self-contained slices instead of micro-tickets. Each
+slice is also the agent's memory — it loads into context automatically every session, so the agent
+always knows the plan without re-briefing.
 
 ## What you get
 
