@@ -26,7 +26,7 @@ workspace — no access to anyone else's workspace required.
 ## Install
 
 ```
-/plugin marketplace add <github-owner>/checklist-system
+/plugin marketplace add failpunk/checklist-system
 /plugin install checklist
 ```
 
