@@ -71,6 +71,33 @@ slice. From then on, every Claude session in that directory loads the slice and 
 | `/checklist:status` | Show open items in the current slice. |
 | `/checklist:new` | Add a checklist item to the current slice. |
 
+## Status bar widget (optional)
+
+A small status-line widget shows your current slice's progress — e.g.
+`FAIL-123 ▰▰▰▱▱▱▱ 3/7` — read from the local `.checklist.state.json` cache (no
+network). It falls back to the folder name when no slice is active.
+
+To enable it:
+
+1. Copy the bundled script somewhere stable and make it executable:
+   ```
+   cp statusline/checklist-statusline.sh ~/.checklist-statusline.sh
+   chmod +x ~/.checklist-statusline.sh
+   ```
+2. Point `statusLine` at it in your Claude Code `settings.json` (your config dir):
+   ```json
+   {
+     "statusLine": {
+       "type": "command",
+       "command": "sh \"$HOME/.checklist-statusline.sh\""
+     }
+   }
+   ```
+
+Requires `jq`. **If you already use a status line**, Claude Code allows only one —
+copy the slice-rendering block out of `statusline/checklist-statusline.sh` into your
+existing script instead of replacing it.
+
 ## Notes
 
 - **Free Linear plan**: archived issues don't count toward the active-issue cap — use
