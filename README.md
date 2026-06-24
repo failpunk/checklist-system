@@ -1,7 +1,7 @@
 # Linear Checklist System (Claude Code plugin)
 
-A personal, cross-project todo tracker for Claude Code, backed by **Linear** (a hard
-requirement). Each onboarded project keeps its high-level todos in a Linear **"slice" issue**;
+A personal, cross-project todo tracker for Claude Code, backed by **Linear**. Each onboarded
+project keeps its high-level todos in a Linear **"slice" issue**;
 Claude loads that slice (and the system's spec) into context at the start of every session, so
 your agent always knows what's on your plate and updates it as work completes.
 
