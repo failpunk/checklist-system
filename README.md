@@ -30,6 +30,8 @@ always knows the plan without re-briefing.
 ## Prerequisites
 
 - **Claude Code.**
+- **Python 3** on your PATH (the `linear.py` wrapper and the hooks run on it).
+- **macOS or Linux** (the hooks and tooling are bash + Python; on Windows use WSL or Git Bash).
 - A **Linear** account + workspace (the free plan is fine; the tooling includes an `archive-issue`
   command for the 250-active-issue cap).
 - A Linear **personal API key**: <https://linear.app/settings/api> (needs read + write).
@@ -37,19 +39,20 @@ always knows the plan without re-briefing.
 ## Install
 
 ```
-/plugin marketplace add failpunk/checklist-system
-/plugin install checklist
+/plugin marketplace add https://github.com/failpunk/checklist-system
+/plugin install checklist@checklist-system
 ```
 
-Installing registers the slash commands and the SessionStart hook automatically (via the plugin's
-`hooks.json`) — no manual settings.json editing.
+Use the full HTTPS URL (not the `owner/repo` shorthand) so the marketplace clones over HTTPS
+(no GitHub SSH key required). Installing registers the slash commands and the SessionStart hook
+automatically (via the plugin's `hooks.json`) — no manual settings.json editing.
 
 ## Set up your API key
 
 Provide your Linear key one of three ways (checked in this order):
 
 1. Env var: `export LINEAR_API_KEY="lin_api_..."`
-2. macOS Keychain: `security add-generic-password -U -s linear-checklist -a "$USER" -w`
+2. macOS Keychain (macOS only): `security add-generic-password -U -s linear-checklist -a "$USER" -w`
 3. File: `~/.config/checklist/api-key` (chmod 600)
 
 ## Onboard a project
