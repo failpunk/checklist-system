@@ -1,0 +1,13 @@
+{
+  "name": "checklist-system",
+  "owner": {
+    "name": "Justin Vencel"
+  },
+  "plugins": [
+    {
+      "name": "checklist",
+      "source": "./",
+      "description": "Linear-backed cross-project todo tracking for Claude Code. Project todos live as 'slice' issues in your own Linear workspace; spec ships bundled."
+    }
+  ]
+}

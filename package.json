@@ -1,0 +1,7 @@
+{
+  "name": "checklist-system",
+  "version": "0.1.0",
+  "description": "Linear-backed cross-project todo tracking plugin for Claude Code",
+  "type": "module",
+  "license": "MIT"
+}
