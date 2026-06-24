@@ -5,11 +5,10 @@ project keeps its high-level todos in a Linear **"slice" issue**;
 Claude loads that slice (and the system's spec) into context at the start of every session, so
 your agent always knows what's on your plate and updates it as work completes.
 
-Everything ships **bundled** in the plugin — the spec (`spec/`), the slash-command skills
-(`/checklist:setup`, `slice`, `status`, `new`), a SessionStart hook that auto-loads your current
-slice each session (plus a PostToolUse hook), the `linear.py` API wrapper, and an optional
-status-bar widget — so it works against *your own* Linear workspace, with no access to anyone
-else's required.
+Everything ships **bundled** in the plugin — the spec, the slash-command skills, a SessionStart
+hook that auto-loads your current slice each session, the `linear.py` API wrapper, and an
+optional status-bar widget — so it works against *your own* Linear workspace, with no access to
+anyone else's required.
 
 ## Why we built it
 
