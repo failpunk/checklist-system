@@ -94,8 +94,6 @@ The user's argument is in `$ARGUMENTS`. Branch on its shape:
    ```
    ## Slice wrap-up
 
-   **Final state:** Done
-
    **What landed:**
    - <each completed `- [X]` item from the saved body, in order>
 

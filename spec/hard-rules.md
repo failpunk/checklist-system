@@ -24,7 +24,7 @@ When posting plan content via `set-body`, preserve the top checkbox section. Rep
 
 ## Always post a wrap-up comment when closing a slice
 
-When a slice is closed (`mark-done`, the `/checklist:slice done` flow, or a natural-language close), post a human-readable wrap-up comment on it: final state, what was done, and any other updates (carry-forward, decisions, follow-ups). Closing a slice without a wrap-up comment leaves no record of how it ended. See [Slice state lifecycle](./slice-state-lifecycle.md).
+When a slice is closed (`mark-done`, the `/checklist:slice done` flow, or a natural-language close), post a human-readable wrap-up comment on it: what was done, and any other updates (carry-forward, decisions, follow-ups). Closing a slice without a wrap-up comment leaves no record of how it ended. See [Slice state lifecycle](./slice-state-lifecycle.md).
 
 ## Don't paraphrase the spec back to the user as if it's news
 

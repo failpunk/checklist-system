@@ -38,7 +38,6 @@ Whenever a slice is closed (via `mark-done`, the `/checklist:slice done` flow, o
 
 The comment, in clean Linear-rendered markdown, states:
 
-* **Final state** of the slice (Done, or why it was closed).
 * **What was done** — the completed items, i.e. what actually landed.
 * **Any other updates** — items carried forward (and to which new slice), decisions made, follow-ups, or why open items were dropped.
 
