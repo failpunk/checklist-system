@@ -72,7 +72,7 @@ python3 ~/.claude-adly/plugins/checklist/scripts/linear.py add-project-resource 
 
 Capture the project name.
 
-_(No initiative linkage step. A project belongs to the system by having a `.checklist.json` that names its Linear project — the canonical spec lives in the Failpunk team document "Checklist System — Spec Index", not in an initiative. Initiative grouping was the old mechanism and has been retired.)_
+_(A project joins the system by having a `.checklist.json` that names its Linear team + project. The spec ships bundled with the plugin in `spec/`.)_
 
 ## 5. Label selection
 

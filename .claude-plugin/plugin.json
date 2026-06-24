@@ -1,6 +1,6 @@
 {
   "name": "checklist",
-  "description": "Linear-backed cross-project todo tracking for Claude Code. High-level project todos live as 'slice' issues in your own Linear workspace; the spec ships bundled so it works without any private workspace access.",
+  "description": "Linear Checklist System: cross-project todo tracking for Claude Code, backed by Linear (required). Project todos live as 'slice' issues in your own Linear workspace; the spec ships bundled so it works without any private workspace access.",
   "version": "0.1.0",
   "author": {
     "name": "Justin Vencel",
