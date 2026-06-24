@@ -8,6 +8,11 @@ your plate and updates it as work completes.
 The spec ships **bundled** with the plugin (`spec/`), so it works against *your own* Linear
 workspace — no access to anyone else's workspace required.
 
+> **Why does this exist?** Coding agents are stateless between sessions — they forget your
+> project's plan every time. This keeps "what matters and what's next" in Linear (a shared
+> human + agent source of truth) and auto-loads it every session, so the agent always knows
+> where things stand. Full rationale: **[PHILOSOPHY.md](./PHILOSOPHY.md)**.
+
 ## What you get
 
 - A `.checklist.json` in any repo marks it as tracked. A SessionStart hook detects it and injects
